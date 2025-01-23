@@ -25,7 +25,7 @@ export default function Home() {
       {/* Left geometric shapes */}
       <div className="absolute bottom-0 left-0 z-0">
         <Image
-          src="/asset.png"
+          src="/asset2.png"
           alt="Geometric background shapes"
           width={278}
           height={513}
@@ -38,7 +38,7 @@ export default function Home() {
         <div className="mx-auto max-w-[1440px] px-4">
           <Navbar />
           <Header />
-          <div className="mt-32">
+          <div>
             <FeatureCards />
           </div>
           <Footer />
