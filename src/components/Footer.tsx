@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <div className="relative mt-32 mb-16">
+    <div className="relative mb-8">
       {/* Footer bar */}
       <div 
         className="mx-auto"
