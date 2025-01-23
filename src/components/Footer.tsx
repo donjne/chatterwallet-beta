@@ -1,17 +1,14 @@
-"use client"
 import React from 'react';
 
 const Footer = () => {
   return (
-    <div className="relative">
+    <div className="relative mt-32 mb-16">
       {/* Footer bar */}
       <div 
+        className="mx-auto"
         style={{
-          position: 'absolute',
           width: '1000px',
           height: '80px',
-          left: '220px',
-          top: '884px',
           background: 'rgba(255, 255, 255, 0.1)',
           backdropFilter: 'blur(4px)',
           boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
@@ -63,10 +60,8 @@ const Footer = () => {
 
       {/* Copyright text */}
       <div 
+        className="text-right mt-4 mr-8"
         style={{
-          position: 'absolute',
-          right: '220px',
-          top: '980px',
           fontFamily: 'Iquost',
           fontSize: '14px',
           color: '#625B85'
