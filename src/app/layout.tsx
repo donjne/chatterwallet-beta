@@ -4,8 +4,9 @@ import "./globals.css";
 
 // Load Iquost font locally
 const iquost = localFont({
-  src: '/Iquost-Regular.woff2', // Make sure to add your font file here
+  src: './fonts/Iquost-Regular.woff2',
   variable: '--font-iquost',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -20,14 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={iquost.variable}>
-      <head>
-        <style jsx global>{`
-          :root {
-            --font-iquost: ${iquost.style.fontFamily};
-          }
-        `}</style>
-      </head>
-      <body className="font-iquost">
+      <body className={`font-iquost ${iquost.className}`}>
         <div className="relative w-full min-h-screen bg-[#070410]">
           {children}
         </div>
