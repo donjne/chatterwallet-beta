@@ -839,7 +839,7 @@ const FeatureCards: React.FC = () => {
 
   useEffect(() => {
     const handleResize = (): void => {
-      setIsMobile(window.innerWidth <= 768); // Adjusted breakpoint
+      setIsMobile(window.innerWidth <= 1300); // Updated breakpoint
     };
 
     handleResize();
@@ -850,7 +850,7 @@ const FeatureCards: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((current) => (current + 1) % (isMobile ? 4 : 3));
-    }, 12000); // Increased to 12 seconds
+    }, 20000); // Much longer interval - 20 seconds
 
     return () => clearInterval(interval);
   }, [isMobile]);
@@ -862,7 +862,7 @@ const FeatureCards: React.FC = () => {
       <div 
         className="relative w-full h-full rounded-[40px]"
         style={{
-          padding: isMobileSize ? '8px' : '12px',
+          padding: isMobileSize ? '10px' : '12px',
           background: 'rgba(255, 255, 255, 0.03)',
           backdropFilter: 'blur(20px)',
           border: isActive 
@@ -889,7 +889,7 @@ const FeatureCards: React.FC = () => {
 
           <div className="relative w-full h-full flex flex-col">
             <div className="flex-grow flex items-center justify-center p-4">
-              <div className="relative w-4/5 h-4/5">
+              <div className={`relative ${isMobileSize ? 'w-[90%] h-[90%]' : 'w-4/5 h-4/5'}`}>
                 <Image
                   src={card.image}
                   alt={card.title}
@@ -901,10 +901,10 @@ const FeatureCards: React.FC = () => {
             </div>
 
             <div className="w-full px-6 pb-6">
-              <h3 className={`text-white ${isMobileSize ? 'text-lg' : 'text-2xl'} font-medium mb-2 text-left`}>
+              <h3 className={`text-white ${isMobileSize ? 'text-xl' : 'text-2xl'} font-medium mb-2 text-left`}>
                 {card.title}
               </h3>
-              <p className={`text-[#8A8A8A] ${isMobileSize ? 'text-xs' : 'text-sm'} text-left leading-relaxed`}>
+              <p className={`text-[#8A8A8A] ${isMobileSize ? 'text-sm' : 'text-sm'} text-left leading-relaxed`}>
                 {card.description}
               </p>
             </div>
@@ -916,14 +916,14 @@ const FeatureCards: React.FC = () => {
 
   if (isMobile) {
     return (
-      <div className="grid grid-cols-2 gap-8 p-6"> {/* Increased gap from 6 to 8 */}
+      <div className="grid grid-cols-2 gap-10 p-8"> {/* Increased gap and padding */}
         {cards.map((card, index) => (
           <div
             key={card.id}
             className="transition-all duration-1000"
             style={{
-              width: '240px',
-              height: '320px',
+              width: '300px', // Increased from 240px
+              height: '400px', // Increased from 320px
               transform: `scale(${activeIndex === index ? 1.05 : 1})`,
             }}
           >
@@ -939,20 +939,20 @@ const FeatureCards: React.FC = () => {
   }
 
   return (
-    <div className="relative w-[1440px] h-[600px] mx-auto overflow-visible"> {/* Changed width and removed overflow-hidden */}
+    <div className="relative w-[1440px] h-[600px] mx-auto overflow-visible">
       <div className="relative w-full h-full flex justify-center items-center">
         {cards.slice(0, 3).map((card, index) => {
           const position = (index - activeIndex + 3) % 3 as Position;
           const isActive = position === 1;
           
           let translateX = 0;
-          if (position === 0) translateX = -400; // Reduced translation
-          if (position === 2) translateX = 400;
+          if (position === 0) translateX = -500; // Increased spacing between cards
+          if (position === 2) translateX = 500;
           
           return (
             <div
               key={card.id}
-              className="absolute transition-all duration-3000 ease-in-out" // Increased duration
+              className="absolute transition-all duration-[4000ms] ease-in-out" // Much longer duration
               style={{
                 width: isActive ? '500px' : '400px',
                 height: isActive ? '600px' : '500px',
@@ -971,3 +971,138 @@ const FeatureCards: React.FC = () => {
 };
 
 export default FeatureCards;
+
+//   useEffect(() => {
+//     const handleResize = (): void => {
+//       setIsMobile(window.innerWidth <= 768); // Adjusted breakpoint
+//     };
+
+//     handleResize();
+//     window.addEventListener('resize', handleResize);
+//     return () => window.removeEventListener('resize', handleResize);
+//   }, []);
+
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setActiveIndex((current) => (current + 1) % (isMobile ? 4 : 3));
+//     }, 12000); // Increased to 12 seconds
+
+//     return () => clearInterval(interval);
+//   }, [isMobile]);
+
+//   const CardContent: React.FC<CardContentProps> = ({ card, isActive, size = 'desktop' }) => {
+//     const isMobileSize = size === 'mobile';
+
+//     return (
+//       <div 
+//         className="relative w-full h-full rounded-[40px]"
+//         style={{
+//           padding: isMobileSize ? '8px' : '12px',
+//           background: 'rgba(255, 255, 255, 0.03)',
+//           backdropFilter: 'blur(20px)',
+//           border: isActive 
+//             ? '1px solid rgba(139, 95, 226, 0.3)'
+//             : '1px solid rgba(255, 255, 255, 0.1)',
+//           boxShadow: isActive 
+//             ? '0 0 30px rgba(139, 95, 226, 0.15)'
+//             : 'none',
+//         }}
+//       >
+//         <div
+//           className="relative w-full h-full rounded-[32px] overflow-hidden"
+//           style={{
+//             background: 'rgba(20, 20, 25, 0.9)',
+//           }}
+//         >
+//           <div 
+//             className="absolute inset-0"
+//             style={{
+//               background: 'linear-gradient(180deg, rgba(30, 30, 35, 0.4) 0%, rgba(30, 30, 35, 0.1) 100%)',
+//               borderRadius: '32px',
+//             }}
+//           />
+
+//           <div className="relative w-full h-full flex flex-col">
+//             <div className="flex-grow flex items-center justify-center p-4">
+//               <div className="relative w-4/5 h-4/5">
+//                 <Image
+//                   src={card.image}
+//                   alt={card.title}
+//                   fill
+//                   className="object-contain"
+//                   priority
+//                 />
+//               </div>
+//             </div>
+
+//             <div className="w-full px-6 pb-6">
+//               <h3 className={`text-white ${isMobileSize ? 'text-lg' : 'text-2xl'} font-medium mb-2 text-left`}>
+//                 {card.title}
+//               </h3>
+//               <p className={`text-[#8A8A8A] ${isMobileSize ? 'text-xs' : 'text-sm'} text-left leading-relaxed`}>
+//                 {card.description}
+//               </p>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   };
+
+//   if (isMobile) {
+//     return (
+//       <div className="grid grid-cols-2 gap-8 p-6"> {/* Increased gap from 6 to 8 */}
+//         {cards.map((card, index) => (
+//           <div
+//             key={card.id}
+//             className="transition-all duration-1000"
+//             style={{
+//               width: '240px',
+//               height: '320px',
+//               transform: `scale(${activeIndex === index ? 1.05 : 1})`,
+//             }}
+//           >
+//             <CardContent 
+//               card={card} 
+//               isActive={activeIndex === index} 
+//               size="mobile"
+//             />
+//           </div>
+//         ))}
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="relative w-[1440px] h-[600px] mx-auto overflow-visible"> {/* Changed width and removed overflow-hidden */}
+//       <div className="relative w-full h-full flex justify-center items-center">
+//         {cards.slice(0, 3).map((card, index) => {
+//           const position = (index - activeIndex + 3) % 3 as Position;
+//           const isActive = position === 1;
+          
+//           let translateX = 0;
+//           if (position === 0) translateX = -400; // Reduced translation
+//           if (position === 2) translateX = 400;
+          
+//           return (
+//             <div
+//               key={card.id}
+//               className="absolute transition-all duration-3000 ease-in-out" // Increased duration
+//               style={{
+//                 width: isActive ? '500px' : '400px',
+//                 height: isActive ? '600px' : '500px',
+//                 transform: `translateX(${translateX}px) scale(${isActive ? 1 : 0.85})`,
+//                 opacity: 1,
+//                 zIndex: isActive ? 2 : 1,
+//               }}
+//             >
+//               <CardContent card={card} isActive={isActive} />
+//             </div>
+//           );
+//         })}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default FeatureCards;
