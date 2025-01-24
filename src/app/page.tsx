@@ -8,16 +8,23 @@ import Image from 'next/image';
 
 const spaceGrotesk = Space_Grotesk({ 
   subsets: ['latin'],
+  weight: ['400', '500', '600'],
   display: 'swap',
 });
 
 export default function Home() {
   return (
-    <main className={`relative min-h-screen bg-[#0F0A1F] overflow-hidden ${spaceGrotesk.className}`}>
+    <main 
+      className={`relative min-h-screen overflow-hidden ${spaceGrotesk.className}`}
+      style={{
+        background: 'linear-gradient(180deg, #070410 0%, #0F0A1F 100%)',
+      }}
+    >
+      {/* Background Effects */}
       <StarBackground />
       
-      {/* Background decorations */}
-      <div className="fixed bottom-0 right-0 z-0">
+      {/* Purple glow on right */}
+      <div className="fixed bottom-0 right-0 z-0 opacity-60">
         <svg width="368" height="368" viewBox="0 0 368 368" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g style={{ mixBlendMode: 'screen' }}>
             <circle cx="368" cy="368" r="368" fill="url(#paint0_radial_460_2)"/>
@@ -31,37 +38,47 @@ export default function Home() {
         </svg>
       </div>
 
-      {/* Left geometric shapes */}
-      <div className="fixed bottom-0 left-0 z-0">
+      {/* Geometric shapes */}
+      <div className="fixed -bottom-20 -left-20 z-0">
         <Image
           src="/asset2.png"
           alt="Geometric background shapes"
-          width={278}
-          height={513}
+          width={400}
+          height={700}
           priority
+          className="opacity-60"
         />
       </div>
 
-      {/* Main content */}
+      {/* Content wrapper with subtle gradient overlay */}
       <div className="relative z-10 min-h-screen flex flex-col">
-        <div className="flex-grow flex flex-col items-center pt-20 pb-20">
-          {/* Centered container for main content */}
+        <div className="flex-grow flex flex-col items-center pt-16">
+          {/* Main content container */}
           <div className="w-[1000px] flex flex-col items-center">
             <Navbar />
-            <div className="mt-20">
+            <div className="mt-16">
               <Header />
             </div>
-            <div className="mt-32 mb-32">
+            <div className="mt-24 mb-24">
               <FeatureCards />
             </div>
           </div>
         </div>
 
-        {/* Footer section */}
-        <div className="relative">
+        {/* Footer */}
+        <div className="relative mt-auto">
           <Footer />
         </div>
       </div>
+
+      {/* Additional gradient overlay */}
+      <div 
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{
+          background: 'radial-gradient(circle at 50% 0%, rgba(7, 4, 16, 0) 0%, #070410 100%)',
+          opacity: 0.4
+        }}
+      />
     </main>
   );
 }

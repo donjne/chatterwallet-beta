@@ -79,7 +79,7 @@ const Header = () => {
       </h1>
       
       <p
-        className="mt-8"
+        className="mt-4"
         style={{
           width: '628px',
           fontFamily: 'Iquost',

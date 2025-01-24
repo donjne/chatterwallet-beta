@@ -2,6 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
+type Position = 0 | 1 | 2;
+interface LeftPositions {
+  [key: number]: string;
+}
+
 const FeatureCards = () => {
   const [activeIndex, setActiveIndex] = useState(1);
 
@@ -26,66 +31,78 @@ const FeatureCards = () => {
     }
   ];
 
+  const leftPositions: LeftPositions = {
+    0: '200px',  // left card
+    1: '520px',  // center card
+    2: '840px'   // right card
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((current) => (current + 1) % 3);
-    }, 5000);
+    }, 8000); // Increased from 5000 to 8000ms
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="relative w-[1000px]" style={{ height: '495px' }}>
+    <div className="relative w-[1440px] mx-auto" style={{ height: '600px' }}>
       <div className="relative h-full">
         {cards.map((card, index) => {
           const isActive = index === activeIndex;
-          const position = (index - activeIndex + 3) % 3;
+          const position = (index - activeIndex + 3) % 3 as Position;
           
-          // Calculate positions relative to container width
-          const leftPositions = {
-            0: '50px',   // left card
-            1: '300px',  // center card
-            2: '550px'   // right card
-          };
-
           return (
             <div
               key={card.id}
-              className="transition-all duration-500 ease-in-out absolute"
+              className="absolute"
               style={{
-                width: position === 1 ? '400px' : '350px',
-                height: position === 1 ? '495px' : '433.12px',
+                width: position === 1 ? '400px' : '320px',
+                height: position === 1 ? '500px' : '420px',
                 left: leftPositions[position],
-                top: position === 1 ? '0px' : '30.94px',
-                padding: position === 1 ? '25px' : '21.875px',
-                background: 'rgba(217, 217, 217, 0.05)',
-                borderRadius: position === 1 ? '40px' : '35px',
-                border: position === 1 ? '2px solid #8B5FE2' : 'none',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                gap: position === 1 ? '20px' : '17.5px',
-                transform: `scale(${position === 1 ? 1 : 0.9})`,
+                top: position === 1 ? '0px' : '40px',
+                background: 'rgba(20, 20, 25, 0.4)',
+                borderRadius: '40px',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                overflow: 'hidden',
+                transform: `scale(${position === 1 ? 1 : 0.85})`,
                 zIndex: position === 1 ? 2 : 1,
+                transition: 'all 1000ms ease-in-out', // Increased from 500ms to 1000ms
               }}
             >
-              <div className="w-full pt-8 pb-4 flex justify-center">
-                <div className="relative w-32 h-32">
-                  <Image
-                    src={card.image}
-                    alt={card.title}
-                    fill
-                    className="object-contain"
-                    priority
-                  />
+              {/* Inner card with gray border effect */}
+              <div 
+                className="relative w-full h-full"
+                style={{
+                  background: 'linear-gradient(180deg, rgba(30, 30, 35, 0.3) 0%, rgba(30, 30, 35, 0.1) 100%)',
+                  border: position === 1 ? '2px solid #8B5FE2' : '1px solid rgba(98, 91, 133, 0.2)',
+                  borderRadius: '38px',
+                  transition: 'all 1000ms ease-in-out',
+                }}
+              >
+                {/* Image container taking most space */}
+                <div className="w-full h-[70%] flex items-center justify-center">
+                  <div className="relative w-48 h-48">
+                    <Image
+                      src={card.image}
+                      alt={card.title}
+                      fill
+                      className="object-contain"
+                      priority
+                    />
+                  </div>
+                </div>
+
+                {/* Text container at bottom */}
+                <div className="absolute bottom-0 left-0 w-full p-8">
+                  <h3 className="text-white text-2xl font-medium mb-2 text-left">
+                    {card.title}
+                  </h3>
+                  <p className="text-[#8A8A8A] text-sm text-left leading-relaxed">
+                    {card.description}
+                  </p>
                 </div>
               </div>
-              <h3 className="text-white text-2xl font-normal w-full text-center">
-                {card.title}
-              </h3>
-              <p className="text-gray-400 text-sm w-full text-center">
-                {card.description}
-              </p>
             </div>
           );
         })}
