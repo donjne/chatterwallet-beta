@@ -149,11 +149,13 @@ const Header = () => {
           color: '#FFFFFF'
         }}
       >
-        Join the <span className="hidden md:inline">ChatterWallet</span>
-        <span className="md:hidden">
-          <br />ChatterWallet<br />
+        Join the <span className="hidden md:inline">
+          <span style={{ color: '#8B5FE2' }}>ChatterWallet</span> Private Beta!
         </span>
-        Private Beta!
+        <span className="md:hidden">
+          <br /><span style={{ color: '#8B5FE2' }}>ChatterWallet</span><br />
+          Private Beta!
+        </span>
       </h1>
       
       <p

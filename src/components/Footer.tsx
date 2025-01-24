@@ -136,8 +136,15 @@
 
 "use client"
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 const Footer = () => {
+    const router = useRouter();
+  
+    const handleGetStarted = () => {
+      router.push('https://t.me/ChatterWalletBot');
+    };
+    
   return (
     <div className="relative pb-12 md:pb-20 px-4"> 
       <div className="relative mx-auto max-w-[1000px]">
@@ -159,6 +166,7 @@ const Footer = () => {
 
           {/* Get Started Button */}
           <button 
+            onClick={handleGetStarted}
             className="flex items-center justify-center transition-all hover:opacity-90 w-full md:w-[200px] h-12 md:h-[50px] text-lg md:text-2xl"
             style={{
               background: 'linear-gradient(90deg, #8B5FE2 0%, #4C347C 100%)',

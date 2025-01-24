@@ -107,8 +107,15 @@
 "use client"
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
+  const router = useRouter();
+
+  const handleContact = () => {
+    router.push('https://t.me/chatterversehq/3');
+  };
+
   return (
     <nav 
       className="flex justify-between items-center px-6 md:px-12 h-[60px] md:h-20 w-full max-w-[1000px] mx-4"
@@ -135,6 +142,7 @@ const Navbar = () => {
 
       {/* Contact Button */}
       <button 
+        onClick={handleContact}
         className="flex items-center justify-center transition-all hover:opacity-90 text-base md:text-2xl h-10 md:h-[50px] w-[150px] md:w-[200px]"
         style={{
           background: 'linear-gradient(90deg, #8B5FE2 0%, #4C347C 100%)',
