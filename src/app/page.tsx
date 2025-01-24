@@ -1,4 +1,3 @@
-import { Space_Grotesk } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import Header from '@/components/Header';
 import FeatureCards from '@/components/FeatureCards';
@@ -6,26 +5,20 @@ import Footer from '@/components/Footer';
 import StarBackground from '@/components/StarBackground';
 import Image from 'next/image';
 
-const spaceGrotesk = Space_Grotesk({ 
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  display: 'swap',
-});
-
 export default function Home() {
   return (
     <main 
-      className={`relative min-h-screen overflow-hidden ${spaceGrotesk.className}`}
+      className="relative min-h-screen overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, #070410 0%, #0F0A1F 100%)',
       }}
     >
-      {/* Background Effects */}
       <StarBackground />
       
       {/* Purple glow on right */}
-      <div className="fixed bottom-0 right-0 z-0 opacity-60">
-        <svg width="368" height="368" viewBox="0 0 368 368" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div className="fixed bottom-0 right-0 z-0">
+        <svg width="368" height="368" viewBox="0 0 368 368" fill="none" xmlns="http://www.w3.org/2000/svg"
+          style={{ filter: 'brightness(1.2) contrast(1.2)' }}>
           <g style={{ mixBlendMode: 'screen' }}>
             <circle cx="368" cy="368" r="368" fill="url(#paint0_radial_460_2)"/>
           </g>
@@ -38,15 +31,24 @@ export default function Home() {
         </svg>
       </div>
 
-      {/* Geometric shapes */}
-      <div className="fixed -bottom-20 -left-20 z-0">
+      {/* Geometric shapes with purple glow */}
+      <div className="fixed bottom-0 left-0 z-0">
+        {/* Purple glow for geometric shape */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            background: 'radial-gradient(circle at center, rgba(139, 95, 226, 0.3) 0%, transparent 70%)',
+            filter: 'blur(40px)',
+            transform: 'translateY(-20%)'
+          }}
+        />
         <Image
           src="/asset2.png"
           alt="Geometric background shapes"
-          width={400}
-          height={700}
+          width={278}
+          height={513}
           priority
-          className="opacity-60"
+          className="relative z-1 opacity-70"
         />
       </div>
 

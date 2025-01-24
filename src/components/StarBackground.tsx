@@ -15,16 +15,16 @@ const StarBackground: React.FC = () => {
 
   useEffect(() => {
     const createInitialStars = () => {
-      const initialStars: Star[] = Array.from({ length: 100 }, () => {
+      const initialStars: Star[] = Array.from({ length: 70 }, () => {
         const yPercentage = Math.random();
         return {
           id: Math.random(),
           x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1440),
-          // Concentrate more stars in the top third
-          y: (Math.pow(yPercentage, 2)) * (typeof window !== 'undefined' ? window.innerHeight / 2.5 : 400),
-          size: Math.random() * 1.5 + 0.5, // Slightly smaller stars
-          opacity: Math.random() * 0.7 + 0.3, // Higher base opacity
-          speed: Math.random() * 0.3 + 0.1 // Slower animation
+          // Spread stars more evenly in the top half
+          y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight / 1.5 : 600),
+          size: Math.random() * 1.5 + 0.5,
+          opacity: Math.random() * 0.3 + 0.5, // Base opacity between 0.5 and 0.8
+          speed: Math.random() * 0.15 + 0.05 // Slower animation
         };
       });
       setStars(initialStars);
@@ -36,7 +36,7 @@ const StarBackground: React.FC = () => {
       setStars(prevStars => 
         prevStars.map(star => ({
           ...star,
-          opacity: (Math.sin(Date.now() * star.speed * 0.001) * 0.3 + 0.7) * star.opacity
+          opacity: (Math.sin(Date.now() * star.speed * 0.001) * 0.15 + 0.85) * star.opacity // Smaller opacity variation
         }))
       );
     };
@@ -61,15 +61,15 @@ const StarBackground: React.FC = () => {
       {stars.map(star => (
         <div
           key={star.id}
-          className="absolute rounded-full transition-opacity duration-1000"
+          className="absolute rounded-full transition-opacity duration-2000"
           style={{
             left: star.x,
             top: star.y,
             width: star.size,
             height: star.size,
             opacity: star.opacity,
-            background: 'rgba(255, 255, 255, 0.8)',
-            boxShadow: '0 0 2px rgba(255, 255, 255, 0.4)'
+            background: 'rgba(255, 255, 255, 1)',
+            boxShadow: '0 0 3px rgba(255, 255, 255, 0.6)'
           }}
         />
       ))}
