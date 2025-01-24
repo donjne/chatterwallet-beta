@@ -2,14 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
-type Position = 0 | 1 | 2;
-interface LeftPositions {
-  [key: number]: string;
-}
-
 const FeatureCards = () => {
   const [activeIndex, setActiveIndex] = useState(1);
-  const [isAnimating, setIsAnimating] = useState(false);
 
   const cards = [
     {
@@ -32,45 +26,36 @@ const FeatureCards = () => {
     }
   ];
 
-  // Slide animation positions
-  const getPositionStyles = (position: Position) => {
-    const baseWidth = 450; // Increased base width
-    const styles = {
-      0: { left: '-100%', opacity: 0 },
-      1: { left: '50%', transform: 'translateX(-50%)', opacity: 1 },
-      2: { left: '100%', opacity: 0 }
-    };
-    return styles[position];
-  };
-
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsAnimating(true);
-      setTimeout(() => {
-        setActiveIndex((current) => (current + 1) % 3);
-        setIsAnimating(false);
-      }, 1000);
+      setActiveIndex((current) => (current + 1) % 3);
     }, 8000);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="relative w-full max-w-[1440px] mx-auto overflow-hidden" style={{ height: '700px' }}>
-      <div className="relative h-full">
+    <div className="relative w-[1200px] h-[600px] mx-auto">
+      <div className="relative w-full h-full flex justify-center items-center">
         {cards.map((card, index) => {
-          const position = (index - activeIndex + 3) % 3 as Position;
-          const positionStyles = getPositionStyles(position);
+          const position = (index - activeIndex + 3) % 3;
+          const isActive = position === 1;
+          
+          // Calculate x position
+          let translateX = 0;
+          if (position === 0) translateX = -600; // Left card
+          if (position === 2) translateX = 600;  // Right card
           
           return (
             <div
               key={card.id}
-              className="absolute top-1/2 -translate-y-1/2"
+              className="absolute transition-all duration-1000 ease-in-out"
               style={{
-                width: position === 1 ? '500px' : '400px', // Increased sizes
-                height: position === 1 ? '600px' : '500px',
-                ...positionStyles,
-                transition: 'all 1000ms cubic-bezier(0.4, 0, 0.2, 1)',
+                width: isActive ? '500px' : '400px',
+                height: isActive ? '600px' : '500px',
+                transform: `translateX(${translateX}px) scale(${isActive ? 1 : 0.85})`,
+                opacity: isActive ? 1 : 0.6,
+                zIndex: isActive ? 2 : 1,
               }}
             >
               {/* Outer glass effect container */}
@@ -88,39 +73,31 @@ const FeatureCards = () => {
                   className="absolute inset-[2px] rounded-[38px]"
                   style={{
                     background: 'linear-gradient(180deg, rgba(30, 30, 35, 0.6) 0%, rgba(30, 30, 35, 0.3) 100%)',
-                    border: position === 1 ? '2px solid #8B5FE2' : '1px solid rgba(98, 91, 133, 0.2)',
-                    boxShadow: position === 1 ? '0 0 20px rgba(139, 95, 226, 0.2)' : 'none',
+                    border: isActive ? '2px solid #8B5FE2' : '1px solid rgba(98, 91, 133, 0.2)',
+                    boxShadow: isActive ? '0 0 20px rgba(139, 95, 226, 0.2)' : 'none',
                   }}
                 >
-                  {/* Inner content container with additional glass effect */}
-                  <div 
-                    className="absolute inset-[2px] rounded-[36px] overflow-hidden"
-                    style={{
-                      background: 'linear-gradient(180deg, rgba(20, 20, 25, 0.8) 0%, rgba(20, 20, 25, 0.4) 100%)',
-                    }}
-                  >
-                    {/* Image container */}
-                    <div className="w-full h-[75%] flex items-center justify-center">
-                      <div className={`relative transition-all duration-500 ${position === 1 ? 'w-80 h-80' : 'w-64 h-64'}`}>
-                        <Image
-                          src={card.image}
-                          alt={card.title}
-                          fill
-                          className="object-contain"
-                          priority
-                        />
-                      </div>
+                  {/* Image container */}
+                  <div className="w-full h-[75%] flex items-center justify-center p-8">
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={card.image}
+                        alt={card.title}
+                        fill
+                        className="object-contain"
+                        priority
+                      />
                     </div>
+                  </div>
 
-                    {/* Text container */}
-                    <div className="absolute bottom-0 left-0 w-full p-8">
-                      <h3 className="text-white text-2xl font-medium mb-2 text-left">
-                        {card.title}
-                      </h3>
-                      <p className="text-[#8A8A8A] text-sm text-left leading-relaxed">
-                        {card.description}
-                      </p>
-                    </div>
+                  {/* Text container */}
+                  <div className="absolute bottom-0 left-0 w-full p-8">
+                    <h3 className="text-white text-2xl font-medium mb-2 text-left">
+                      {card.title}
+                    </h3>
+                    <p className="text-[#8A8A8A] text-sm text-left leading-relaxed">
+                      {card.description}
+                    </p>
                   </div>
                 </div>
               </div>
