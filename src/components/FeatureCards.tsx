@@ -916,24 +916,26 @@ const FeatureCards: React.FC = () => {
 
   if (isMobile) {
     return (
-      <div className="grid grid-cols-2 gap-10 p-8"> {/* Increased gap and padding */}
-        {cards.map((card, index) => (
-          <div
-            key={card.id}
-            className="transition-all duration-1000"
-            style={{
-              width: '300px', // Increased from 240px
-              height: '400px', // Increased from 320px
-              transform: `scale(${activeIndex === index ? 1.05 : 1})`,
-            }}
-          >
-            <CardContent 
-              card={card} 
-              isActive={activeIndex === index} 
-              size="mobile"
-            />
-          </div>
-        ))}
+      <div className="flex justify-center w-full">
+        <div className="grid grid-cols-2 gap-10 p-8 place-items-center max-w-[700px]">
+          {cards.map((card, index) => (
+            <div
+              key={card.id}
+              className="transition-all duration-1000"
+              style={{
+                width: '300px',
+                height: '400px',
+                transform: `scale(${activeIndex === index ? 1.05 : 1})`,
+              }}
+            >
+              <CardContent 
+                card={card} 
+                isActive={activeIndex === index} 
+                size="mobile"
+              />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
