@@ -114,7 +114,7 @@ const Header = () => {
           color: '#FFFFFF'
         }}
       >
-        Join the <span style={{ color: '#8B5FE2' }}>ChatterWallet</span> Private Beta!
+        Join the <br/><span style={{ color: '#8B5FE2' }}>ChatterWallet</span><br/> Private Beta!
       </h1>
       
       <p
