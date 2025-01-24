@@ -889,7 +889,7 @@ const FeatureCards: React.FC = () => {
 
           <div className="relative w-full h-full flex flex-col">
             <div className="flex-grow flex items-center justify-center p-4">
-              <div className={`relative ${isMobileSize ? 'w-[90%] h-[90%]' : 'w-4/5 h-4/5'}`}>
+              <div className={`relative ${isMobileSize ? 'w-[95%] h-[95%]' : 'w-4/5 h-4/5'}`}>
                 <Image
                   src={card.image}
                   alt={card.title}
@@ -901,10 +901,10 @@ const FeatureCards: React.FC = () => {
             </div>
 
             <div className="w-full px-6 pb-6">
-              <h3 className={`text-white ${isMobileSize ? 'text-lg' : 'text-2xl'} font-medium mb-2 text-left`}>
+              <h3 className={`text-white ${isMobileSize ? 'text-base' : 'text-2xl'} font-medium mb-2 text-left`}>
                 {card.title}
               </h3>
-              <p className={`text-[#8A8A8A] ${isMobileSize ? 'text-sm' : 'text-sm'} text-left leading-relaxed`}>
+              <p className={`text-[#8A8A8A] ${isMobileSize ? 'text-xs' : 'text-sm'} text-left leading-relaxed`}>
                 {card.description}
               </p>
             </div>

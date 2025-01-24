@@ -100,6 +100,41 @@
 
 // export default Header;
 
+// "use client"
+// import React from 'react';
+
+// const Header = () => {
+//   return (
+//     <header className="w-full max-w-[1000px] flex flex-col items-center px-4">
+//       <h1
+//         className="text-3xl md:text-5xl text-center leading-tight md:leading-normal"
+//         style={{
+//           fontWeight: 400,
+//           letterSpacing: '-0.035em',
+//           color: '#FFFFFF'
+//         }}
+//       >
+//         Join the <br/><span style={{ color: '#8B5FE2' }}>ChatterWallet</span><br/> Private Beta!
+//       </h1>
+      
+//       <p
+//         className="mt-4 text-sm md:text-lg text-center max-w-[628px]"
+//         style={{
+//           fontWeight: 400,
+//           lineHeight: '1.5',
+//           letterSpacing: '-0.035em',
+//           color: '#625B85'
+//         }}
+//       >
+//         Revolutionize how you pay utility bills with <br/>crypto. Be the first to experience 
+//         the future of <br/>seamless, secure, and fast utility payments.
+//       </p>
+//     </header>
+//   );
+// };
+
+// export default Header;
+
 "use client"
 import React from 'react';
 
@@ -114,7 +149,11 @@ const Header = () => {
           color: '#FFFFFF'
         }}
       >
-        Join the <br/><span style={{ color: '#8B5FE2' }}>ChatterWallet</span><br/> Private Beta!
+        Join the <span className="hidden md:inline">ChatterWallet</span>
+        <span className="md:hidden">
+          <br />ChatterWallet<br />
+        </span>
+        Private Beta!
       </h1>
       
       <p
@@ -126,8 +165,16 @@ const Header = () => {
           color: '#625B85'
         }}
       >
-        Revolutionize how you pay utility bills with <br/>crypto. Be the first to experience 
-        the future of <br/>seamless, secure, and fast utility payments.
+        <span className="hidden md:inline">
+          Revolutionize how you pay utility bills with crypto. Be the first to experience 
+          the future of seamless, secure, and fast utility payments.
+        </span>
+        <span className="md:hidden">
+          Revolutionize how you pay utility bills with<br /> 
+          crypto. Be the first to experience the<br />
+          future of seamless, secure, and fast<br />
+          utility payments.
+        </span>
       </p>
     </header>
   );
