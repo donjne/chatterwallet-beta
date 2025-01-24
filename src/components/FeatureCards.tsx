@@ -417,6 +417,191 @@
 
 // export default FeatureCards;
 
+// BAD CODE
+// "use client"
+// import React, { useState, useEffect } from 'react';
+// import Image from 'next/image';
+
+// interface Card {
+//   id: number;
+//   title: string;
+//   description: string;
+//   image: string;
+// }
+
+// interface CardContentProps {
+//   card: Card;
+//   isActive: boolean;
+//   size?: 'desktop' | 'mobile';
+// }
+
+// type Position = 0 | 1 | 2;
+
+// const FeatureCards: React.FC = () => {
+//   const [activeIndex, setActiveIndex] = useState<number>(1);
+//   const [isMobile, setIsMobile] = useState<boolean>(false);
+
+//   const cards: Card[] = [
+//     {
+//       id: 0,
+//       title: "Get 1000+ base credits",
+//       description: "Early base credits to unlock exclusive discounts and execute cheaper transactions",
+//       image: "/gift.png" 
+//     },
+//     {
+//       id: 1,
+//       title: "Be a Pioneer",
+//       description: "Your feedback will shape the Chatter Wallet experience",
+//       image: "/cursor.png" 
+//     },
+//     {
+//       id: 2,
+//       title: "Pay Bills Seamlessly",
+//       description: "Use your cryptocurrency to pay electricity, water, and internet bills with ease",
+//       image: "/dollar.png"
+//     },
+//     {
+//       id: 3,
+//       title: "Secure and Fast transaction",
+//       description: "Built on Solana's high-speed blockchain infrastructure",
+//       image: "/rocket.png"
+//     }
+//   ];
+
+//   useEffect(() => {
+//     const handleResize = (): void => {
+//       setIsMobile(window.innerWidth < 768);
+//     };
+
+//     handleResize();
+//     window.addEventListener('resize', handleResize);
+//     return () => window.removeEventListener('resize', handleResize);
+//   }, []);
+
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setActiveIndex((current) => (current + 1) % (isMobile ? 4 : 3));
+//     }, 5000);
+
+//     return () => clearInterval(interval);
+//   }, [isMobile]);
+
+//   const CardContent: React.FC<CardContentProps> = ({ card, isActive, size = 'desktop' }) => {
+//     const isMobileSize = size === 'mobile';
+
+//     return (
+//       <div 
+//         className="relative w-full h-full rounded-[40px]"
+//         style={{
+//           padding: isMobileSize ? '8px' : '12px',
+//           background: 'rgba(255, 255, 255, 0.03)',
+//           backdropFilter: 'blur(20px)',
+//           border: isActive 
+//             ? '1px solid rgba(139, 95, 226, 0.3)'
+//             : '1px solid rgba(255, 255, 255, 0.1)',
+//           boxShadow: isActive 
+//             ? '0 0 30px rgba(139, 95, 226, 0.15)'
+//             : 'none',
+//         }}
+//       >
+//         <div
+//           className="relative w-full h-full rounded-[32px] overflow-hidden"
+//           style={{
+//             background: 'rgba(20, 20, 25, 0.9)',
+//           }}
+//         >
+//           <div 
+//             className="absolute inset-0"
+//             style={{
+//               background: 'linear-gradient(180deg, rgba(30, 30, 35, 0.4) 0%, rgba(30, 30, 35, 0.1) 100%)',
+//               borderRadius: '32px',
+//             }}
+//           />
+
+//           <div className="relative w-full h-full">
+//             <div className="w-full h-[75%] flex items-center justify-center p-4">
+//               <div className="relative w-full h-full">
+//                 <Image
+//                   src={card.image}
+//                   alt={card.title}
+//                   fill
+//                   className="object-contain"
+//                   priority
+//                 />
+//               </div>
+//             </div>
+
+//             <div className="absolute bottom-0 left-0 w-full p-8">
+//               <h3 className={`text-white ${isMobileSize ? 'text-lg' : 'text-2xl'} font-medium mb-2 text-left`}>
+//                 {card.title}
+//               </h3>
+//               <p className={`text-[#8A8A8A] ${isMobileSize ? 'text-xs' : 'text-sm'} text-left leading-relaxed`}>
+//                 {card.description}
+//               </p>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   };
+
+//   if (isMobile) {
+//     return (
+//       <div className="grid grid-cols-2 gap-4 p-4">
+//         {cards.map((card, index) => (
+//           <div
+//             key={card.id}
+//             className="transition-all duration-500"
+//             style={{
+//               width: '160px',
+//               height: '200px',
+//               transform: `scale(${activeIndex === index ? 1.1 : 1})`,
+//             }}
+//           >
+//             <CardContent 
+//               card={card} 
+//               isActive={activeIndex === index} 
+//               size="mobile"
+//             />
+//           </div>
+//         ))}
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="relative w-[1200px] h-[600px] mx-auto overflow-hidden">
+//       <div className="relative w-full h-full flex justify-center items-center">
+//         {cards.slice(0, 3).map((card, index) => {
+//           const position = (index - activeIndex + 3) % 3 as Position;
+//           const isActive = position === 1;
+          
+//           const xPos = position === 0 ? '-200%' : position === 2 ? '200%' : '0%';
+//           const opacity = position === 1 ? 1 : 0;
+          
+//           return (
+//             <div
+//               key={card.id}
+//               className="absolute transition-all duration-1000 ease-in-out"
+//               style={{
+//                 width: isActive ? '500px' : '400px',
+//                 height: isActive ? '600px' : '500px',
+//                 transform: `translateX(${xPos}) scale(${isActive ? 1 : 0.85})`,
+//                 opacity,
+//                 zIndex: isActive ? 2 : 1,
+//               }}
+//             >
+//               <CardContent card={card} isActive={isActive} />
+//             </div>
+//           );
+//         })}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default FeatureCards;
+
 "use client"
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -480,7 +665,7 @@ const FeatureCards: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((current) => (current + 1) % (isMobile ? 4 : 3));
-    }, 5000);
+    }, 8000); // Increased interval
 
     return () => clearInterval(interval);
   }, [isMobile]);
@@ -517,9 +702,9 @@ const FeatureCards: React.FC = () => {
             }}
           />
 
-          <div className="relative w-full h-full">
-            <div className="w-full h-[75%] flex items-center justify-center p-4">
-              <div className="relative w-full h-full">
+          <div className="relative w-full h-full flex flex-col">
+            <div className="flex-grow flex items-center justify-center p-4">
+              <div className="relative w-4/5 h-4/5">
                 <Image
                   src={card.image}
                   alt={card.title}
@@ -530,7 +715,7 @@ const FeatureCards: React.FC = () => {
               </div>
             </div>
 
-            <div className="absolute bottom-0 left-0 w-full p-8">
+            <div className="w-full px-6 pb-6">
               <h3 className={`text-white ${isMobileSize ? 'text-lg' : 'text-2xl'} font-medium mb-2 text-left`}>
                 {card.title}
               </h3>
@@ -546,15 +731,15 @@ const FeatureCards: React.FC = () => {
 
   if (isMobile) {
     return (
-      <div className="grid grid-cols-2 gap-4 p-4">
+      <div className="grid grid-cols-2 gap-6 p-6">
         {cards.map((card, index) => (
           <div
             key={card.id}
-            className="transition-all duration-500"
+            className="transition-all duration-1000"
             style={{
-              width: '160px',
-              height: '200px',
-              transform: `scale(${activeIndex === index ? 1.1 : 1})`,
+              width: '240px',
+              height: '320px',
+              transform: `scale(${activeIndex === index ? 1.05 : 1})`,
             }}
           >
             <CardContent 
@@ -575,18 +760,19 @@ const FeatureCards: React.FC = () => {
           const position = (index - activeIndex + 3) % 3 as Position;
           const isActive = position === 1;
           
-          const xPos = position === 0 ? '-200%' : position === 2 ? '200%' : '0%';
-          const opacity = position === 1 ? 1 : 0;
+          let translateX = 0;
+          if (position === 0) translateX = -450;
+          if (position === 2) translateX = 450;
           
           return (
             <div
               key={card.id}
-              className="absolute transition-all duration-1000 ease-in-out"
+              className="absolute transition-all duration-2000 ease-in-out"
               style={{
                 width: isActive ? '500px' : '400px',
                 height: isActive ? '600px' : '500px',
-                transform: `translateX(${xPos}) scale(${isActive ? 1 : 0.85})`,
-                opacity,
+                transform: `translateX(${translateX}px) scale(${isActive ? 1 : 0.85})`,
+                opacity: 1,
                 zIndex: isActive ? 2 : 1,
               }}
             >
