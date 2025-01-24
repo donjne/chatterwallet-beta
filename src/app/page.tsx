@@ -97,7 +97,7 @@ export default function Home() {
             </div>
             
             {/* Feature cards with proper spacing */}
-            <div className="mt-32 mb-32">
+            <div className="mt-32 mb-32 mx-auto">
               <FeatureCards />
             </div>
           </div>
