@@ -923,9 +923,9 @@ const FeatureCards: React.FC = () => {
               key={card.id}
               className="transition-all duration-1000"
               style={{
-                width: '250px',
-                height: '350px',
-                transform: `scale(${activeIndex === index ? 1.1 : 1})`,
+                width: '200px',
+                height: '300px',
+                transform: `scale(${activeIndex === index ? 1.05 : 1})`,
               }}
             >
               <CardContent 
