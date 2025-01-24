@@ -126,8 +126,8 @@ const Header = () => {
           color: '#625B85'
         }}
       >
-        Revolutionize how you pay utility bills with crypto. Be the first to experience 
-        the future of seamless, secure, and fast utility payments.
+        Revolutionize how you pay utility bills with <br/>crypto. Be the first to experience 
+        the future of <br/>seamless, secure, and fast utility payments.
       </p>
     </header>
   );

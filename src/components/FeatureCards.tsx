@@ -901,7 +901,7 @@ const FeatureCards: React.FC = () => {
             </div>
 
             <div className="w-full px-6 pb-6">
-              <h3 className={`text-white ${isMobileSize ? 'text-xl' : 'text-2xl'} font-medium mb-2 text-left`}>
+              <h3 className={`text-white ${isMobileSize ? 'text-lg' : 'text-2xl'} font-medium mb-2 text-left`}>
                 {card.title}
               </h3>
               <p className={`text-[#8A8A8A] ${isMobileSize ? 'text-sm' : 'text-sm'} text-left leading-relaxed`}>
@@ -923,8 +923,8 @@ const FeatureCards: React.FC = () => {
               key={card.id}
               className="transition-all duration-1000"
               style={{
-                width: '200px',
-                height: '300px',
+                width: '180px',
+                height: '280px',
                 transform: `scale(${activeIndex === index ? 1.05 : 1})`,
               }}
             >
